@@ -1,0 +1,22 @@
+# Node
+
+/**/node_modules/
+
+# Maven
+
+/**/target/
+
+# IntelliJ
+
+/**/*.iml
+/**/.idea/
+
+# Eclipse
+
+/**/bin/
+/**/tmp/
+/**/.classpath
+/**/.metadata/
+/**/.project
+/**/.settings/
+/**/.springBeans
