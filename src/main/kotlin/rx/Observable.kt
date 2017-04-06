@@ -3,9 +3,15 @@
 
 package rx
 
-external class Observable<out T> : Subscribable<T> {
+external open class Observable<T> : Subscribable<T> {
 
-    override fun subscribe(next: (value: T) -> Unit): AnonymousSubscription
+    override fun subscribe(): Subscription
+    override fun subscribe(next: (value: T) -> Unit): Subscription
+    override fun subscribe(next: (value: T) -> Unit,
+                           error: (err: Any?) -> Unit): Subscription
+    override fun subscribe(next: (value: T) -> Unit,
+                           error: (err: Any?) -> Unit,
+                           complete: () -> Unit): Subscription
 
     fun filter(predicate: (value: T) -> Boolean): Observable<T>
     fun first(predicate: (value: T) -> Boolean): Observable<T>
@@ -13,6 +19,8 @@ external class Observable<out T> : Subscribable<T> {
     fun <R> mergeMap(project: (value: T) -> Observable<R>): Observable<R>
 
     fun <R> switchMap(project: (value: T) -> Subscribable<R>): Observable<R>
+
+    open fun <R> lift(operator: Operator<T, R>): Subject<R>
 
     companion object {
 

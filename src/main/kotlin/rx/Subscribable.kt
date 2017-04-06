@@ -5,5 +5,14 @@ package rx
 
 external interface Subscribable<out T> {
 
-    fun subscribe(next: (value: T) -> Unit): AnonymousSubscription
+    fun subscribe(): Subscription
+
+    fun subscribe(next: (value: T) -> Unit): Subscription
+
+    fun subscribe(next: (value: T) -> Unit,
+                  error: (err: Any?) -> Unit): Subscription
+
+    fun subscribe(next: (value: T) -> Unit,
+                  error: (err: Any?) -> Unit,
+                  complete: () -> Unit): Subscription
 }
