@@ -1,4 +1,4 @@
-package rx
+package Rx
 
 import jasmine.describe
 import jasmine.it

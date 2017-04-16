@@ -1,7 +1,7 @@
-@file:JsModule("Rx")
+@file:JsModule(ModuleName)
 @file:JsNonModule
 
-package rx
+package Rx
 
 external open class Observable<T> : Subscribable<T> {
 
