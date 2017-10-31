@@ -1,0 +1,71 @@
+buildscript {
+    ext.kotlin_version = '1.1.51'
+    ext.dokka_version = '0.9.13'
+
+    repositories {
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.23"
+    }
+}
+
+apply plugin: 'org.jetbrains.kotlin.frontend'
+apply plugin: 'kotlin2js'
+apply plugin: 'maven'
+
+group = 'io.yegair'
+version = '5.2.0-SNAPSHOT'
+description = "RxJS Bindings for Kotlin"
+
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-js', version: kotlin_version
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-test-js', version: kotlin_version
+}
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
+}
+
+compileTestKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js-tests/${project.name}-tests.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+//    kotlinOptions.moduleName = project.name + "-test"
+    kotlinOptions.main = "call"
+}
+
+kotlinFrontend {
+
+    npm {
+        dependency("rxjs", "5.2.0")
+        devDependency "karma"
+    }
+
+    webpackBundle {
+        bundleName = "main"
+        sourceMapEnabled = true
+    }
+
+    define "PRODUCTION", false
+
+    karma {
+        port = 9876
+        runnerPort = 9100
+        reporters = ["progress"]
+        frameworks = ["qunit"]
+    }
+}
