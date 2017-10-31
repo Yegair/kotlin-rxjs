@@ -1,7 +1,6 @@
-@file:JsModule(ModuleName)
-@file:JsNonModule
+@file:JsModule("rxjs")
 
-package Rx
+package rxjs
 
 external interface Operator<T, R> {
     fun call(subscriber: Subscriber<R>, source: Any): dynamic

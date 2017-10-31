@@ -1,7 +1,6 @@
-@file:JsModule(ModuleName)
-@file:JsNonModule
+@file:JsModule("rxjs")
 
-package Rx
+package rxjs
 
 external class Subscriber<T>(destination: Observer<T>,
                              error: (e: Any?) -> Unit,

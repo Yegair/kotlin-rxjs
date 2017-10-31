@@ -1,7 +1,6 @@
-@file:JsModule(ModuleName)
-@file:JsNonModule
+@file:JsModule("rxjs")
 
-package Rx
+package rxjs
 
 external open class Subject<T> : Observable<T>, Observer<T> {
 

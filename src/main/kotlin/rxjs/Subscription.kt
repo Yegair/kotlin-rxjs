@@ -1,7 +1,6 @@
-@file:JsModule(ModuleName)
-@file:JsNonModule
+@file:JsModule("rxjs")
 
-package Rx
+package rxjs
 
 external open class Subscription(unsubscribe: () -> Unit) : AnonymousSubscription {
 
@@ -9,6 +8,6 @@ external open class Subscription(unsubscribe: () -> Unit) : AnonymousSubscriptio
 
     fun add(teardown: AnonymousSubscription): Subscription
     fun add(teardown: () -> Unit): Subscription
-    fun remove(subscription: Subscription): Unit
-    override fun unsubscribe(): Unit
+    fun remove(subscription: Subscription)
+    override fun unsubscribe()
 }
