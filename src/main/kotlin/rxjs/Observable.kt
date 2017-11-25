@@ -113,6 +113,11 @@ external open class Observable<T> : Subscribable<T> {
                         concurrent: Int = definedExternally): Observable<R>
 
     /**
+     * Asynchronously subscribes Observers to this Observable on the specified [Scheduler].
+     */
+    fun subscribeOn(scheduler: Scheduler?): Observable<T>
+
+    /**
      * Projects each source value to an Observable which is merged in the output Observable, emitting values only from
      * the most recently projected Observable.
      *
@@ -236,14 +241,19 @@ external open class Observable<T> : Subscribable<T> {
         fun <T> empty(): Observable<T>
 
         /**
-         * TODO
+         * Creates an Observable from an [Subscribable].
          */
         fun <T> from(subscribable: Subscribable<T>): Observable<T>
 
         /**
-         * TODO
+         * Creates an Observable from an [Array].
          */
         fun <T> from(values: Array<T>): Observable<T>
+
+        /**
+         * Creates an Observable from an [IntArray].
+         */
+        fun from(values: IntArray): Observable<Int>
 
         /**
          * Creates an Observable that emits some values you specify as arguments,

@@ -2,6 +2,7 @@ package rxjs
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.fail
 
 
@@ -97,6 +98,51 @@ class ObservableSpec {
                 assertEquals(listOf(1, 2, 3), values)
             }
         )
+    }
+
+    @Test
+    fun fromIntArray() {
+
+        val observable = Observable.from(intArrayOf(1, 2, 3))
+        val values = mutableListOf<Int>()
+
+        observable.subscribe(
+            next = { value ->
+                values.add(value)
+            },
+            error = { fail() },
+            complete = {
+                assertEquals(listOf(1, 2, 3), values)
+            }
+        )
+    }
+
+    @Test
+    fun fromSubject() {
+
+        val subject = Subject.create<Int>()
+
+        val observable = Observable.from(subject)
+
+        // TODO: fix test when async testing is available
+        assertNotNull(observable)
+
+//        val values = mutableListOf<Int>()
+//
+//        observable.subscribe(
+//            next = { value ->
+//                values.add(value)
+//            },
+//            error = { fail() },
+//            complete = {
+//                assertEquals(listOf(1, 2, 3), values)
+//            }
+//        )
+//
+//        subject.next(1)
+//        subject.next(2)
+//        subject.next(3)
+//        subject.complete()
     }
 
     @Test
